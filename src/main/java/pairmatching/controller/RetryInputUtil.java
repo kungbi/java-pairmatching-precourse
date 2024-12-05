@@ -26,20 +26,6 @@ public final class RetryInputUtil {
         return retryLogics(InputView::getPairMatchInput, InputParser::parsePairMatchInputDto);
     }
 
-    private static <T> T retryLogics(Supplier<String> userInputReader, Function<String, T> parser,
-                                     Consumer<T> validator) {
-        while (true) {
-            try {
-                String userInput = userInputReader.get();
-                T parsedInput = parser.apply(userInput);
-                validator.accept(parsedInput);
-                return parsedInput;
-            } catch (IllegalArgumentException error) {
-                OutputView.printError(error.getMessage());
-            }
-        }
-    }
-
     private static <T> T retryLogics(Supplier<String> userInputReader, Function<String, T> parser) {
         while (true) {
             try {

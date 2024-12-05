@@ -33,14 +33,14 @@ public final class OutputView {
     }
 
     private static String getFormattedNames(List<String> names) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < names.size(); i++) {
-            result += names.get(i);
+            result.append(names.get(i));
             if (i != names.size() - 1) {
-                result += " : ";
+                result.append(" : ");
             }
         }
-        return result;
+        return result.toString();
     }
 
     private static void printNewLine() {
