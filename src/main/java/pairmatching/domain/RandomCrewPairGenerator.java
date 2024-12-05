@@ -2,7 +2,6 @@ package pairmatching.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class RandomCrewPairGenerator {
     private final ShuffleUtil shuffleUtil;

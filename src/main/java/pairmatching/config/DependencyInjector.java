@@ -21,7 +21,7 @@ public class DependencyInjector {
 
     public Controller getController() {
         if (controller == null) {
-            controller = new Controller(getCrewRepository(), getMatchRepository(), getPairMatchingMaker());
+            controller = new Controller(getMatchRepository(), getPairMatchingMaker());
         }
         return controller;
     }

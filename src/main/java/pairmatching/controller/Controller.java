@@ -9,18 +9,15 @@ import pairmatching.enums.Course;
 import pairmatching.enums.GeneralCommand;
 import pairmatching.enums.Mission;
 import pairmatching.enums.RematchCommand;
-import pairmatching.repository.CrewRepository;
 import pairmatching.repository.MatchRepository;
 import pairmatching.view.OutputView;
 
 public class Controller {
-    private final CrewRepository crewRepository;
     private final MatchRepository matchRepository;
     private final PairMatchingMaker pairMatchingMaker;
 
-    public Controller(CrewRepository crewRepository, MatchRepository matchRepository,
+    public Controller(MatchRepository matchRepository,
                       PairMatchingMaker pairMatchingMaker) {
-        this.crewRepository = crewRepository;
         this.matchRepository = matchRepository;
         this.pairMatchingMaker = pairMatchingMaker;
     }

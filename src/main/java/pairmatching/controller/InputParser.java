@@ -9,14 +9,6 @@ import pairmatching.enums.Mission;
 
 public class InputParser {
 
-    public static int parseInt(String input) {
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
-
     public static PairMatchInputDto parsePairMatchInputDto(String input) {
         List<String> splitInput = Arrays.stream(input.split(",")).toList();
         if (splitInput.size() != 3) {

@@ -10,10 +10,6 @@ public enum RematchCommand {
         this.input = input;
     }
 
-    public String getInput() {
-        return input;
-    }
-
     public static RematchCommand findByInput(String input) {
         for (RematchCommand command : RematchCommand.values()) {
             if (command.input.equals(input.trim())) {
