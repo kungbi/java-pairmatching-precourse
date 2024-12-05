@@ -2,6 +2,7 @@ package pairmatching.repository;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import pairmatching.domain.Group;
 import pairmatching.domain.MatchGroups;
 import pairmatching.enums.Course;
@@ -48,6 +49,20 @@ public class MatchRepository implements Repository<MatchGroups> {
             }
         }
         return false;
+    }
+
+    public Optional<MatchGroups> findByCourseAndMission(Course course, Mission mission) {
+        if (!this.matches.containsKey(course)) {
+            return Optional.empty();
+        }
+        if (!this.matches.get(course).containsKey(mission)) {
+            return Optional.empty();
+        }
+        return Optional.of(this.matches.get(course).get(mission));
+    }
+
+    public void reset() {
+        this.matches.clear();
     }
 
 }

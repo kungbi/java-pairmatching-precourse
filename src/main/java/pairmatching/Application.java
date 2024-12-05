@@ -1,12 +1,13 @@
 package pairmatching;
 
-import pairmatching.file.parser.CrewParser;
-import pairmatching.file.reader.CsvReader;
-import pairmatching.initializer.BackendCrewInitializer;
-import pairmatching.initializer.FrontendCrewInitializer;
-import pairmatching.repository.CrewRepository;
+import pairmatching.config.DependencyInjector;
+import pairmatching.controller.Controller;
 
 public class Application {
     public static void main(String[] args) {
+        DependencyInjector dependencyInjector = new DependencyInjector();
+        Controller controller = dependencyInjector.getController();
+
+        controller.run();
     }
 }

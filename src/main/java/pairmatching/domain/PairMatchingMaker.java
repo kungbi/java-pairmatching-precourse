@@ -25,10 +25,10 @@ public class PairMatchingMaker {
         if (this.matchRepository.isExist(course, mission)) {
             throw new IllegalStateException();
         }
-
         RandomCrewPairGenerator randomCrewPairGenerator = createCrewPairGenerator(course);
 
         List<Group> matches = new ArrayList<>();
+        int retryCount = 0;
         while (randomCrewPairGenerator.getSize() != 0) {
             Set<String> crewNames = randomCrewPairGenerator.pollNextGroup();
             Set<CrewMember> crew = crewNames.stream()
@@ -38,10 +38,15 @@ public class PairMatchingMaker {
 
             if (this.matchRepository.hasSameGroupInLevel(course, mission.getLevel(), group)) {
                 randomCrewPairGenerator.shuffle();
+                retryCount++;
+                if (retryCount == 3) {
+                    throw new IllegalStateException("매칭이 불가능 합니다.");
+                }
                 continue;
             }
             matches.add(group);
             randomCrewPairGenerator.pop();
+            retryCount = 0;
         }
         return new MatchGroups(
                 matches,

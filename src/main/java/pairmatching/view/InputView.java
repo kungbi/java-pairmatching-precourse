@@ -1,7 +1,7 @@
 package pairmatching.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import pairmatching.enums.Command;
+import pairmatching.enums.GeneralCommand;
 
 public final class InputView {
 
@@ -10,8 +10,8 @@ public final class InputView {
 
     public static String getCommand() {
         System.out.println("기능을 선택하세요.");
-        for (Command command : Command.values()) {
-            System.out.printf("%s. %s", command.getCommand(), command.getDescription());
+        for (GeneralCommand command : GeneralCommand.values()) {
+            System.out.printf("%s. %s", command.getInput(), command.getDescription());
             printNewLine();
         }
         return getUserInput();

@@ -15,7 +15,7 @@ public class MatchGroups {
         this.course = course;
     }
 
-    public List<Group> getMatches() {
+    public List<Group> getGroups() {
         return matches;
     }
 

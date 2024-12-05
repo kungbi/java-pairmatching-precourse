@@ -1,7 +1,7 @@
 package pairmatching.enums;
 
 public enum Mission {
-    RACE("자동차 경주", Level.LEVEL_1),
+    RACE("자동차경주", Level.LEVEL_1),
     LOTTERY("로또", Level.LEVEL_1),
     NUMBER_BASEBALL_GAME("숫자야구게임", Level.LEVEL_1),
 
@@ -26,5 +26,14 @@ public enum Mission {
 
     public Level getLevel() {
         return level;
+    }
+
+    public static Mission findByName(String name) {
+        for (Mission mission : Mission.values()) {
+            if (mission.getName().equals(name)) {
+                return mission;
+            }
+        }
+        throw new IllegalArgumentException("없는 미션입니다");
     }
 }

@@ -1,8 +1,8 @@
 package pairmatching.view;
 
 import java.util.List;
-import pairmatching.dtos.MatchingResult;
-import pairmatching.dtos.MatchingResult.MatchingSingleResult;
+import pairmatching.dtos.MatchingResultDto;
+import pairmatching.dtos.MatchingResultDto.MatchingSingleResult;
 
 public final class OutputView {
 
@@ -10,7 +10,7 @@ public final class OutputView {
 
     }
 
-    public static void printMatchingResult(MatchingResult matchingResult) {
+    public static void printMatchingResult(MatchingResultDto matchingResult) {
         List<MatchingSingleResult> results = matchingResult.results();
         System.out.println("페어 매칭 결과입니다.");
         results.forEach(

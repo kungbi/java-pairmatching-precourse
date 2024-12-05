@@ -48,7 +48,7 @@ class PairMatchingMakerTest {
 
         MatchGroups matchGroups = pairMatchingMaker.make(Course.BACKEND, Mission.DEPLOYMENT);
 
-        Assertions.assertThat(matchGroups.getMatches())
+        Assertions.assertThat(matchGroups.getGroups())
                 .isEqualTo(List.of(new Group(Set.of(철수, 영희)), new Group(Set.of(맹구, 짱구))));
     }
 
@@ -75,7 +75,7 @@ class PairMatchingMakerTest {
 
         MatchGroups matchGroups = pairMatchingMaker.make(Course.BACKEND, Mission.DEPLOYMENT);
 
-        Assertions.assertThat(matchGroups.getMatches())
+        Assertions.assertThat(matchGroups.getGroups())
                 .isEqualTo(List.of(new Group(Set.of(철수, 맹구)), new Group(Set.of(영희, 짱구))));
     }
 
