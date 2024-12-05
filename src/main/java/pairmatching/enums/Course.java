@@ -12,7 +12,7 @@ public enum Course {
 
     public static Course findByName(String name) {
         for (Course course : values()) {
-            if (course.name.equals(name)) {
+            if (course.name.equals(name.trim())) {
                 return course;
             }
         }

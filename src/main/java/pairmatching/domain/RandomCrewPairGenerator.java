@@ -14,7 +14,7 @@ public class RandomCrewPairGenerator {
         this.crewMembers = new ArrayList<>(shuffleUtil.shuffle(crewMembers));
     }
 
-    public Set<String> pollNextGroup() {
+    public List<String> pollNextGroup() {
         if (this.getSize() == 3) {
             return this.getThreeMembers();
         }
@@ -52,18 +52,18 @@ public class RandomCrewPairGenerator {
     }
 
 
-    private Set<String> getTwoMembers() {
+    private List<String> getTwoMembers() {
         if (this.getSize() < 2) {
             throw new IllegalStateException();
         }
-        return Set.of(crewMembers.get(0), crewMembers.get(1));
+        return List.of(crewMembers.get(0), crewMembers.get(1));
     }
 
 
-    private Set<String> getThreeMembers() {
+    private List<String> getThreeMembers() {
         if (this.getSize() < 3) {
             throw new IllegalStateException();
         }
-        return Set.of(crewMembers.get(0), crewMembers.get(1), crewMembers.get(2));
+        return List.of(crewMembers.get(0), crewMembers.get(1), crewMembers.get(2));
     }
 }

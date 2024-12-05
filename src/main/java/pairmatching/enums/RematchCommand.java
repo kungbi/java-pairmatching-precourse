@@ -16,7 +16,7 @@ public enum RematchCommand {
 
     public static RematchCommand findByInput(String input) {
         for (RematchCommand command : RematchCommand.values()) {
-            if (command.input.equals(input)) {
+            if (command.input.equals(input.trim())) {
                 return command;
             }
         }

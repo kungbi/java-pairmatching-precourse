@@ -22,10 +22,10 @@ class RandomCrewPairGeneratorTest {
     void 그룹_매칭_테스트_짝수() {
         RandomCrewPairGenerator randomCrewGenerator = new RandomCrewPairGenerator(getShuffleUtil(returns_even), returns_even);
 
-        Assertions.assertThat(randomCrewGenerator.pollNextGroup()).isEqualTo(Set.of("철수", "영희"));
+        Assertions.assertThat(randomCrewGenerator.pollNextGroup()).isEqualTo(List.of("철수", "영희"));
         randomCrewGenerator.pop();
 
-        Assertions.assertThat(randomCrewGenerator.pollNextGroup()).isEqualTo(Set.of("맹구", "짱구"));
+        Assertions.assertThat(randomCrewGenerator.pollNextGroup()).isEqualTo(List.of("맹구", "짱구"));
         randomCrewGenerator.pop();
 
         Assertions.assertThat(randomCrewGenerator.getSize()).isEqualTo(0);
@@ -35,10 +35,10 @@ class RandomCrewPairGeneratorTest {
     void 그룹_매칭_테스트_홀수() {
         RandomCrewPairGenerator randomCrewGenerator = new RandomCrewPairGenerator(getShuffleUtil(returns_odd), returns_odd);
 
-        Assertions.assertThat(randomCrewGenerator.pollNextGroup()).isEqualTo(Set.of("철수", "영희"));
+        Assertions.assertThat(randomCrewGenerator.pollNextGroup()).isEqualTo(List.of("철수", "영희"));
         randomCrewGenerator.pop();
 
-        Assertions.assertThat(randomCrewGenerator.pollNextGroup()).isEqualTo(Set.of("맹구", "짱구", "짱아"));
+        Assertions.assertThat(randomCrewGenerator.pollNextGroup()).isEqualTo(List.of("맹구", "짱구", "짱아"));
         randomCrewGenerator.pop();
 
         Assertions.assertThat(randomCrewGenerator.getSize()).isEqualTo(0);

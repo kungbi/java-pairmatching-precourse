@@ -32,8 +32,13 @@ public class Controller {
                 break;
             }
             if (command == GeneralCommand.MAKE_PAIR) {
-                PairMatchInputDto pairMatchInput = RetryInputUtil.getPairMatchInput();
-                makePair(pairMatchInput.course(), pairMatchInput.mission());
+                while (true) {
+                    PairMatchInputDto pairMatchInput = RetryInputUtil.getPairMatchInput();
+                    boolean result = makePair(pairMatchInput.course(), pairMatchInput.mission());
+                    if (result) {
+                        break;
+                    }
+                }
             }
             if (command == GeneralCommand.RETRIEVE_PAIR) {
                 PairMatchInputDto pairMatchInput = RetryInputUtil.getPairMatchInput();
@@ -41,6 +46,7 @@ public class Controller {
             }
             if (command == GeneralCommand.RESET_PAIR) {
                 this.matchRepository.reset();
+                OutputView.printResetMessage();
             }
         }
     }
@@ -55,22 +61,22 @@ public class Controller {
         OutputView.printMatchingResult(MatchingResultDto.from(matchGroups));
     }
 
-    private void makePair(Course course, Mission mission) {
+    private boolean makePair(Course course, Mission mission) {
         while (true) {
-            Optional<MatchGroups> foundMatchGroups = this.matchRepository.findByCourseAndMission(Course.BACKEND,
-                    Mission.LOTTERY);
+            Optional<MatchGroups> foundMatchGroups = this.matchRepository.findByCourseAndMission(course, mission);
             if (foundMatchGroups.isPresent()) {
                 RematchCommand rematch = RetryInputUtil.getRematch();
                 if (rematch == RematchCommand.NO) {
-                    continue;
+                    return false;
                 }
+                this.matchRepository.resetByCourseAndMission(course, mission);
             }
-
             MatchGroups matchGroups = pairMatchingMaker.make(course, mission);
             this.matchRepository.add(matchGroups);
             OutputView.printMatchingResult(MatchingResultDto.from(matchGroups));
             break;
         }
+        return true;
     }
 
 }

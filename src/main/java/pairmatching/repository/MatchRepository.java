@@ -65,4 +65,14 @@ public class MatchRepository implements Repository<MatchGroups> {
         this.matches.clear();
     }
 
+    public void resetByCourseAndMission(Course course, Mission mission) {
+        if (!this.matches.containsKey(course)) {
+            throw new IllegalStateException();
+        }
+        if (!this.matches.get(course).containsKey(mission)) {
+            throw new IllegalStateException();
+        }
+        this.matches.get(course).remove(mission);
+    }
+
 }

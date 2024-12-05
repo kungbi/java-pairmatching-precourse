@@ -1,6 +1,5 @@
 package pairmatching.domain;
 
-import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -22,31 +21,15 @@ public class PairMatchingMaker {
     }
 
     public MatchGroups make(Course course, Mission mission) {
-        if (this.matchRepository.isExist(course, mission)) {
-            throw new IllegalStateException();
-        }
+        validate(course, mission);
         RandomCrewPairGenerator randomCrewPairGenerator = createCrewPairGenerator(course);
 
         List<Group> matches = new ArrayList<>();
-        int retryCount = 0;
         while (randomCrewPairGenerator.getSize() != 0) {
-            Set<String> crewNames = randomCrewPairGenerator.pollNextGroup();
-            Set<CrewMember> crew = crewNames.stream()
-                    .map(name -> this.crewRepository.findByCourseAndName(course, name)
-                            .orElseThrow(IllegalStateException::new)).collect(Collectors.toSet());
-            Group group = new Group(crew);
+            Group group = getGroup(course, mission, randomCrewPairGenerator);
 
-            if (this.matchRepository.hasSameGroupInLevel(course, mission.getLevel(), group)) {
-                randomCrewPairGenerator.shuffle();
-                retryCount++;
-                if (retryCount == 3) {
-                    throw new IllegalStateException("매칭이 불가능 합니다.");
-                }
-                continue;
-            }
             matches.add(group);
             randomCrewPairGenerator.pop();
-            retryCount = 0;
         }
         return new MatchGroups(
                 matches,
@@ -55,15 +38,33 @@ public class PairMatchingMaker {
         );
     }
 
-    private RandomCrewPairGenerator createCrewPairGenerator(Course course) {
-        List<CrewMember> crews = crewRepository.findAllByCourse(course);
-        RandomCrewPairGenerator randomCrewPairGenerator = new RandomCrewPairGenerator(shuffleUtil,
-                crews.stream().map(CrewMember::getName).toList());
-        return randomCrewPairGenerator;
+    private Group getGroup(Course course, Mission mission, RandomCrewPairGenerator randomCrewPairGenerator) {
+        int retryCount = 0;
+        do {
+            List<String> crewNames = randomCrewPairGenerator.pollNextGroup();
+            Set<CrewMember> crew = crewNames.stream()
+                    .map(name -> this.crewRepository.findByCourseAndName(course, name)
+                            .orElseThrow(IllegalStateException::new)).collect(Collectors.toSet());
+            Group group = new Group(crew);
+            if (!this.matchRepository.hasSameGroupInLevel(course, mission.getLevel(), group)) {
+                return group;
+            }
+            retryCount++;
+            randomCrewPairGenerator.shuffle();
+        } while (retryCount != 3);
+
+        throw new IllegalStateException("매칭이 불가능 합니다.");
     }
 
-    private CrewMember getCrew(List<CrewMember> crews) {
-        Randoms.shuffle(crews);
-        return crews.get(0);
+    private void validate(Course course, Mission mission) {
+        if (this.matchRepository.isExist(course, mission)) {
+            throw new IllegalStateException();
+        }
+    }
+
+    private RandomCrewPairGenerator createCrewPairGenerator(Course course) {
+        List<CrewMember> crews = crewRepository.findAllByCourse(course);
+        return new RandomCrewPairGenerator(shuffleUtil,
+                crews.stream().map(CrewMember::getName).toList());
     }
 }

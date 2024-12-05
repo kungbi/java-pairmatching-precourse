@@ -15,7 +15,7 @@ public enum Level {
 
     public static Level findByName(String name) {
         for (Level level : Level.values()) {
-            if (level.name.equals(name)) {
+            if (level.name.equals(name.trim())) {
                 return level;
             }
         }

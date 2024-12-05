@@ -19,6 +19,7 @@ public final class OutputView {
                     printNewLine();
                 }
         );
+        printNewLine();
     }
 
     public static void printResetMessage() {

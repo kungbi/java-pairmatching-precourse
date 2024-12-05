@@ -16,7 +16,7 @@ public enum GeneralCommand {
 
     public static GeneralCommand findByCommand(String value) {
         for (GeneralCommand command : GeneralCommand.values()) {
-            if (command.input.equals(value)) {
+            if (command.input.equals(value.trim())) {
                 return command;
             }
         }

@@ -30,7 +30,7 @@ public enum Mission {
 
     public static Mission findByName(String name) {
         for (Mission mission : Mission.values()) {
-            if (mission.getName().equals(name)) {
+            if (mission.getName().equals(name.trim())) {
                 return mission;
             }
         }
