@@ -49,7 +49,7 @@ class PairMatchingMakerTest {
         MatchGroups matchGroups = pairMatchingMaker.make(Course.BACKEND, Mission.DEPLOYMENT);
 
         Assertions.assertThat(matchGroups.getGroups())
-                .isEqualTo(List.of(new Group(Set.of(철수, 영희)), new Group(Set.of(맹구, 짱구))));
+                .isEqualTo(List.of(new Group(List.of(철수, 영희)), new Group(List.of(맹구, 짱구))));
     }
 
     @Test
@@ -66,7 +66,7 @@ class PairMatchingMakerTest {
         crewRepository.add(짱구);
         MatchRepository matchRepository = new MatchRepository();
         matchRepository.add(new MatchGroups(
-                List.of(new Group(Set.of(철수, 영희))),
+                List.of(new Group(List.of(철수, 영희))),
                 Mission.PERFORMANCE_IMPROVEMENT,
                 Course.BACKEND
         ));
@@ -76,7 +76,7 @@ class PairMatchingMakerTest {
         MatchGroups matchGroups = pairMatchingMaker.make(Course.BACKEND, Mission.DEPLOYMENT);
 
         Assertions.assertThat(matchGroups.getGroups())
-                .isEqualTo(List.of(new Group(Set.of(철수, 맹구)), new Group(Set.of(영희, 짱구))));
+                .isEqualTo(List.of(new Group(List.of(철수, 맹구)), new Group(List.of(영희, 짱구))));
     }
 
 }

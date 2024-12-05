@@ -2,13 +2,12 @@ package pairmatching.domain;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Group {
-    private final Set<CrewMember> crews;
+    private final List<CrewMember> crews;
 
-    public Group(Set<CrewMember> crews) {
+    public Group(List<CrewMember> crews) {
         this.crews = crews;
     }
 

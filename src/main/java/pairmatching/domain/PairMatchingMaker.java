@@ -2,8 +2,6 @@ package pairmatching.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import pairmatching.enums.Course;
 import pairmatching.enums.Mission;
 import pairmatching.repository.CrewRepository;
@@ -42,9 +40,9 @@ public class PairMatchingMaker {
         int retryCount = 0;
         do {
             List<String> crewNames = randomCrewPairGenerator.pollNextGroup();
-            Set<CrewMember> crew = crewNames.stream()
+            List<CrewMember> crew = crewNames.stream()
                     .map(name -> this.crewRepository.findByCourseAndName(course, name)
-                            .orElseThrow(IllegalStateException::new)).collect(Collectors.toSet());
+                            .orElseThrow(IllegalStateException::new)).toList();
             Group group = new Group(crew);
             if (!this.matchRepository.hasSameGroupInLevel(course, mission.getLevel(), group)) {
                 return group;
